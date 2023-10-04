@@ -15,16 +15,6 @@ UShootingComponent::UShootingComponent()
 }
 
 
-// Called when the game starts
-void UShootingComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// ...
-	
-}
-
-
 // Called every frame
 void UShootingComponent::TickComponent(float DeltaTime, ELevelTick TickType,
                                        FActorComponentTickFunction* ThisTickFunction)

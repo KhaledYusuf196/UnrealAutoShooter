@@ -19,12 +19,6 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 							   FActorComponentTickFunction* ThisTickFunction) override;
 
-protected:
-	
-	virtual void BeginPlay() override;
-
-public:
-
 	UPROPERTY(BlueprintReadWrite)
 	int32 ShootingRate = 1;
 
@@ -38,9 +32,6 @@ public:
 	FName MuzzleSocket;
 
 private:
-
-	
-	
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> BulletClass;

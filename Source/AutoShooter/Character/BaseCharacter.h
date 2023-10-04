@@ -13,15 +13,11 @@ class AUTOSHOOTER_API ABaseCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
+	
 	ABaseCharacter();
 
 	UFUNCTION(BlueprintGetter)
 	UAttributesComponent* GetAttributes() const { return AttributesComponent; }
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 private:
 
