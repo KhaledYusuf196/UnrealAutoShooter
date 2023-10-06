@@ -3,16 +3,9 @@
 
 #include "ShootingComponent.h"
 
+#include "AutoShooter/Projectile/Projectile.h"
 
-// Sets default values for this component's properties
-UShootingComponent::UShootingComponent()
-{
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
-}
 
 
 // Called every frame
@@ -23,19 +16,31 @@ void UShootingComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 
 	if(ShootingCooldown > 0)
 	{
-		ShootingCooldown = FMath::Max(ShootingCooldown - DeltaTime * ShootingRate, 0);
+		ShootingCooldown = FMath::Max(ShootingCooldown - DeltaTime * GetShootingRate(), 0);
 	}
 	
 	if(TargetActor == nullptr) return;
 
+	AdjustCharacterDirectionToTarget();
+
+	if(ShootingCooldown > 0) return;
+	Shoot();
+	
+}
+
+void UShootingComponent::AdjustCharacterDirectionToTarget()
+{
 	FVector Direction = TargetActor->GetActorLocation() - GetOwner()->GetActorLocation();
 	Direction.Z = 0;
 	Direction = Direction.GetSafeNormal();
 	GetOwner()->SetActorRotation(FRotationMatrix::MakeFromX(Direction).Rotator());
+}
 
-	if(ShootingCooldown > 0) return;
+void UShootingComponent::Shoot()
+{
 	ShootingCooldown = 1;
-	GetWorld()->SpawnActor<AActor>(BulletClass, WeaponMesh->GetSocketTransform(MuzzleSocket));
-	
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(BulletClass, WeaponMesh->GetSocketTransform(MuzzleSocket));
+	Projectile->Damage = GetShootingDamage();
+	Projectile->SetInstigator(OwnerCharacter);
 }
 

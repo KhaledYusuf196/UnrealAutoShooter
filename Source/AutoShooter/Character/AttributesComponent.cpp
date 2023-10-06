@@ -14,6 +14,18 @@ UAttributesComponent::UAttributesComponent()
 }
 
 
+void UAttributesComponent::UpdateHealth(float DamageAmount)
+{
+	Health = FMath::Clamp(Health - DamageAmount, 0, MaxHealth);
+
+	if(Health <= 0)
+	{
+		if(ABaseCharacter* BaseCharacter = GetOwnerCharacter())
+		{
+			BaseCharacter->OnDeath();
+		}
+	}
+}
 
 void UAttributesComponent::BeginPlay()
 {
@@ -32,13 +44,13 @@ void UAttributesComponent::BeginPlay()
 	}
 	else
 	{
-		Health = MaxHealth = 100;
+		Health = MaxHealth = ATTRIBUTES_DEFAULT_HEALTH;
 	
-		Speed = 300;
+		Speed = ATTRIBUTES_DEFAULT_SPEED;
 
-		Damage = 100;
+		Damage = ATTRIBUTES_DEFAULT_DAMAGE;
 
-		DamageRate = 1;
+		DamageRate = ATTRIBUTES_DEFAULT_DAMAGE_RATE;
 	}
 	
 	

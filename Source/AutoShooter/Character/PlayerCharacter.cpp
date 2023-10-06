@@ -3,7 +3,6 @@
 
 #include "PlayerCharacter.h"
 
-#include "ShootingComponent.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -22,8 +21,9 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	ShootingComponent->TargetActor = GetNearbyTarget();
+	if(ShootingComponent) ShootingComponent->TargetActor = GetNearbyTarget();
 }
+
 
 
 AActor* APlayerCharacter::GetNearbyTarget() const

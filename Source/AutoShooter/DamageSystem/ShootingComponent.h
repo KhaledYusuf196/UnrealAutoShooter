@@ -3,24 +3,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "AutoShooter/DamageSystem/DamageBaseComponent.h"
 #include "ShootingComponent.generated.h"
 
 
+class ABaseCharacter;
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class AUTOSHOOTER_API UShootingComponent : public UActorComponent
+class AUTOSHOOTER_API UShootingComponent : public UDamageBaseComponent
 {
 	GENERATED_BODY()
 
 public:
-	
-	UShootingComponent();
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
-							   FActorComponentTickFunction* ThisTickFunction) override;
-
-	UPROPERTY(BlueprintReadWrite)
-	int32 ShootingRate = 1;
+	                           FActorComponentTickFunction* ThisTickFunction) override;
 
 	UPROPERTY(BlueprintReadWrite)
 	AActor* TargetActor;
@@ -32,6 +28,9 @@ public:
 	FName MuzzleSocket;
 
 private:
+	
+	void AdjustCharacterDirectionToTarget();
+	void Shoot();
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> BulletClass;

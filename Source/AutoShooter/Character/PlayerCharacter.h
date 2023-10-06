@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "BaseCharacter.h"
+#include "AutoShooter/DamageSystem/ShootingComponent.h"
+
 #include "PlayerCharacter.generated.h"
 
 class UShootingComponent;
@@ -21,6 +23,8 @@ public:
 	virtual void OnConstruction(const FTransform& Transform) override;
 
 	virtual void Tick(float DeltaSeconds) override;
+
+	virtual UDamageBaseComponent* GetDamageComponent() const override { return ShootingComponent; }
 
 private:
 	
