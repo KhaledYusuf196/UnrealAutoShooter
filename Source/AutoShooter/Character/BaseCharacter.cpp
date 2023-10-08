@@ -6,8 +6,15 @@
 #include "AttributesComponent.h"
 #include "AutoShooter/DamageSystem/DamageBaseComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
 
+
+void ABaseCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	GetCharacterMovement()->MaxWalkSpeed = GetAttributes()->GetSpeed();
+}
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()

@@ -14,6 +14,7 @@ void UShootingComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	//TODO: Might Use Timer
 	if(ShootingCooldown > 0)
 	{
 		ShootingCooldown = FMath::Max(ShootingCooldown - DeltaTime * GetShootingRate(), 0);

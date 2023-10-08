@@ -17,9 +17,7 @@ public:
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
-
-	UPROPERTY(BlueprintReadWrite)
-	AActor* TargetActor;
+	
 
 	UPROPERTY(BlueprintReadWrite)
 	USkeletalMeshComponent* WeaponMesh;

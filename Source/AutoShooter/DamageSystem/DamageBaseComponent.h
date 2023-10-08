@@ -23,6 +23,13 @@ protected:
 	int32 GetShootingRate() const;
 	int32 GetShootingDamage() const;
 
+public:
+	
+	UPROPERTY(BlueprintReadWrite)
+	AActor* TargetActor;
+	
+protected:
+	
 	UPROPERTY()
 	ABaseCharacter* OwnerCharacter;
 };

@@ -25,6 +25,11 @@ public:
 	
 	void UpdateHealth(float DamageAmount);
 
+	int32 GetSpeed() const { return Speed; }
+
+	int32 GetHealth() const { return Health; }
+	int32 GetMaxHealth() const { return MaxHealth; }
+
 	ABaseCharacter* GetOwnerCharacter() const { return Cast<ABaseCharacter>(GetOwner()); }
 
 

@@ -14,6 +14,8 @@ class AUTOSHOOTER_API ABaseCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
+
+	virtual void BeginPlay() override;
 	
 	ABaseCharacter();
 
@@ -22,7 +24,7 @@ public:
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
-	 virtual void OnDeath();
+	virtual void OnDeath();
 
 	virtual UDamageBaseComponent* GetDamageComponent() const;
 

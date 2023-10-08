@@ -14,7 +14,7 @@ APlayerCharacter::APlayerCharacter()
 
 void APlayerCharacter::OnConstruction(const FTransform& Transform)
 {
-	ShootingComponent->WeaponMesh = WeaponMesh;
+	if(ShootingComponent) ShootingComponent->WeaponMesh = WeaponMesh;
 }
 
 void APlayerCharacter::Tick(float DeltaSeconds)
@@ -29,7 +29,7 @@ void APlayerCharacter::Tick(float DeltaSeconds)
 AActor* APlayerCharacter::GetNearbyTarget() const
 {
 	AActor* NearestActor = nullptr;
-	float NearestDistance = DetectionRange;
+	float NearestSquaredDistance = DetectionRange * DetectionRange;
 	if(TArray<FOverlapResult> NearbyOverlaps;
 		GetWorld()->OverlapMultiByChannel(NearbyOverlaps, GetActorLocation(), FQuat::Identity, TargetTraceChannel, FCollisionShape::MakeSphere(DetectionRange)))
 	{
@@ -39,9 +39,10 @@ AActor* APlayerCharacter::GetNearbyTarget() const
 			FVector ActorLocation = CurrentActor->GetActorLocation();
 			if(FHitResult HitResult; GetWorld()->LineTraceSingleByChannel(HitResult, GetActorLocation(), ActorLocation, ECollisionChannel::ECC_Visibility))
 			{
-				if(HitResult.GetActor() == CurrentActor && NearestDistance * NearestDistance > (ActorLocation - GetActorLocation()).SizeSquared())
+				if(HitResult.GetActor() == CurrentActor && NearestSquaredDistance > (ActorLocation - GetActorLocation()).SizeSquared())
 				{
 					NearestActor = CurrentActor;
+					NearestSquaredDistance = (ActorLocation - GetActorLocation()).SizeSquared();
 				}
 			}
 		}
