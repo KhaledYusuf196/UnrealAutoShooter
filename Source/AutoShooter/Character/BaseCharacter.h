@@ -14,13 +14,15 @@ class AUTOSHOOTER_API ABaseCharacter : public ACharacter
 	GENERATED_BODY()
 
 public:
-
-	virtual void BeginPlay() override;
-	
 	ABaseCharacter();
+	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable)
+	virtual void Respawn();
 
 	UFUNCTION(BlueprintGetter)
 	UAttributesComponent* GetAttributes() const { return AttributesComponent; }
+
 
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
@@ -28,7 +30,16 @@ public:
 
 	virtual UDamageBaseComponent* GetDamageComponent() const;
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDeathDelegate, ABaseCharacter*, SelfCharacter);
+
+	UPROPERTY(BlueprintAssignable)
+	FDeathDelegate DeathDelegate;
+
 private:
+
+	void ResetMeshTransform();
+
+	FTransform DefaultMeshTransform;
 
 	UPROPERTY(VisibleAnywhere, BlueprintGetter=GetAttributes)
 	UAttributesComponent* AttributesComponent;

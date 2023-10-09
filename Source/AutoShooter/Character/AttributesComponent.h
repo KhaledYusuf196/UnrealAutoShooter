@@ -25,6 +25,8 @@ public:
 	
 	void UpdateHealth(float DamageAmount);
 
+	void ResetHealth() { Health = MaxHealth; }
+
 	int32 GetSpeed() const { return Speed; }
 
 	int32 GetHealth() const { return Health; }

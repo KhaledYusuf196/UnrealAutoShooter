@@ -34,13 +34,13 @@ void UAttributesComponent::BeginPlay()
 
 	if(LevelData != nullptr)
 	{
-		Health = MaxHealth = 100 + 25 * LevelData->GetHealthLevel();
+		Health = MaxHealth = ATTRIBUTES_DEFAULT_HEALTH + 25 * LevelData->GetHealthLevel();
 	
-		Speed = 300 + 100 * LevelData->GetSpeedLevel();
+		Speed = ATTRIBUTES_DEFAULT_SPEED + 100 * LevelData->GetSpeedLevel();
 
-		Damage = 100 + 25 * LevelData->GetDamageLevel();
+		Damage = ATTRIBUTES_DEFAULT_DAMAGE + 25 * LevelData->GetDamageLevel();
 
-		DamageRate = 1 + LevelData->GetDamageRateLevel();
+		DamageRate = ATTRIBUTES_DEFAULT_DAMAGE_RATE + LevelData->GetDamageRateLevel();
 	}
 	else
 	{
