@@ -3,10 +3,13 @@
 
 #include "PlayerCharacter.h"
 
+#include "LevelUpSystem.h"
+
 
 APlayerCharacter::APlayerCharacter()
 {
 	ShootingComponent = CreateDefaultSubobject<UShootingComponent>(TEXT("Shooting Component"));
+	LevelUpSystem = CreateDefaultSubobject<ULevelUpSystem>(TEXT("Character Level"));
 
 	WeaponMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon Mesh"));
 	WeaponMesh->SetupAttachment(GetMesh(), TEXT("weapon_Socket"));

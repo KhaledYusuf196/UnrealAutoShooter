@@ -8,6 +8,7 @@
 
 #include "PlayerCharacter.generated.h"
 
+class ULevelUpSystem;
 class UShootingComponent;
 /**
  * 
@@ -38,6 +39,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* WeaponMesh;
+
+	UPROPERTY(VisibleAnywhere)
+	ULevelUpSystem* LevelUpSystem;
 
 	UPROPERTY(EditAnywhere)
 	float DetectionRange = 1000;

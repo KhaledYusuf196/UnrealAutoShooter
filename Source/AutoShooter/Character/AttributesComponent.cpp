@@ -4,6 +4,7 @@
 #include "AttributesComponent.h"
 
 #include "LevelData.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 
 UAttributesComponent::UAttributesComponent()
@@ -27,20 +28,28 @@ void UAttributesComponent::UpdateHealth(float DamageAmount)
 	}
 }
 
+void UAttributesComponent::UpdateAttributes()
+{
+	Health = MaxHealth = ATTRIBUTES_DEFAULT_HEALTH + 25 * LevelData->GetHealthLevel();
+	
+	Speed = ATTRIBUTES_DEFAULT_SPEED + 100 * LevelData->GetSpeedLevel();
+
+	Damage = ATTRIBUTES_DEFAULT_DAMAGE + 25 * LevelData->GetDamageLevel();
+
+	DamageRate = ATTRIBUTES_DEFAULT_DAMAGE_RATE + LevelData->GetDamageRateLevel();
+
+	GetOwnerCharacter()->GetCharacterMovement()->MaxWalkSpeed = Speed;
+
+}
+
 void UAttributesComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	
 
 	if(LevelData != nullptr)
 	{
-		Health = MaxHealth = ATTRIBUTES_DEFAULT_HEALTH + 25 * LevelData->GetHealthLevel();
-	
-		Speed = ATTRIBUTES_DEFAULT_SPEED + 100 * LevelData->GetSpeedLevel();
-
-		Damage = ATTRIBUTES_DEFAULT_DAMAGE + 25 * LevelData->GetDamageLevel();
-
-		DamageRate = ATTRIBUTES_DEFAULT_DAMAGE_RATE + LevelData->GetDamageRateLevel();
+		UpdateAttributes();
+		LevelData->OnUpgrade.AddDynamic(this, &UAttributesComponent::UpdateAttributes);
 	}
 	else
 	{
@@ -51,6 +60,8 @@ void UAttributesComponent::BeginPlay()
 		Damage = ATTRIBUTES_DEFAULT_DAMAGE;
 
 		DamageRate = ATTRIBUTES_DEFAULT_DAMAGE_RATE;
+
+		GetOwnerCharacter()->GetCharacterMovement()->MaxWalkSpeed = Speed;
 	}
 	
 	

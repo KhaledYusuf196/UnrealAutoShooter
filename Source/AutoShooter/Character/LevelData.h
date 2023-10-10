@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType)
 class AUTOSHOOTER_API ULevelData : public UDataAsset
 {
 	GENERATED_BODY()
@@ -29,6 +29,11 @@ private:
 
 public:
 
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FUpgradeDelegate);
+
+	UPROPERTY(BlueprintAssignable)
+	FUpgradeDelegate OnUpgrade;
+
 	UFUNCTION(BlueprintGetter)
 	int32 GetHealthLevel() const { return HealthLevel; }
 
@@ -42,16 +47,16 @@ public:
 	int32 GetDamageRateLevel() const { return DamageRateLevel; }
 
 	UFUNCTION(BlueprintCallable)
-	void UpgradeHealthLevel() { HealthLevel++; }
+	void UpgradeHealthLevel() { HealthLevel++; OnUpgrade.Broadcast(); }
 
 	UFUNCTION(BlueprintCallable)
-	void UpgradeSpeedLevel() { SpeedLevel++; }
+	void UpgradeSpeedLevel() { SpeedLevel++; OnUpgrade.Broadcast(); }
 
 	UFUNCTION(BlueprintCallable)
-	void UpgradeDamageLevel() { DamageLevel++; }
+	void UpgradeDamageLevel() { DamageLevel++; OnUpgrade.Broadcast(); }
 
 	UFUNCTION(BlueprintCallable)
-	void UpgradeDamageRateLevel() { DamageRateLevel++; }
+	void UpgradeDamageRateLevel() { DamageRateLevel++; OnUpgrade.Broadcast(); }
 
 	UFUNCTION(BlueprintCallable)
 	void ResetLevels() { HealthLevel = SpeedLevel = DamageLevel = DamageRateLevel = 1; }

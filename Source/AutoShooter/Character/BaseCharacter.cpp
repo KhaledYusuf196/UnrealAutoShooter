@@ -19,7 +19,6 @@ ABaseCharacter::ABaseCharacter()
 void ABaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	GetCharacterMovement()->MaxWalkSpeed = GetAttributes()->GetSpeed();
 	DefaultMeshTransform = GetMesh()->GetRelativeTransform();
 }
 

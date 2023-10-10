@@ -25,12 +25,19 @@ public:
 	
 	void UpdateHealth(float DamageAmount);
 
+	UFUNCTION()
+	void UpdateAttributes();
+
 	void ResetHealth() { Health = MaxHealth; }
 
 	int32 GetSpeed() const { return Speed; }
-
+	
 	int32 GetHealth() const { return Health; }
+	
 	int32 GetMaxHealth() const { return MaxHealth; }
+
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercent() const { return static_cast<float>(Health) / MaxHealth; }
 
 	ABaseCharacter* GetOwnerCharacter() const { return Cast<ABaseCharacter>(GetOwner()); }
 
